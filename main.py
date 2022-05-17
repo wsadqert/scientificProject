@@ -1,16 +1,15 @@
-import numpy as np
-import matplotlib.pyplot as plt
 import configparser
-
-from data.star import Star
-
-from math import pi, log
-from astropy.constants import sigma_sb, L_sun
-from data.constants import *
+from typing import Final
+from data.star import Star, StarSystem
 
 data = configparser.ConfigParser()
 data.read('./data/data.inf')
 
+parameters: Final[tuple[str, str, str]] = ('Radius', 'Temperature', 'Mass')
 
-star_1 = Star(int(data['Star 1']['radius']), int(data['Star 1']['temperature']))
-star_2 = Star(int(data['Star 2']['radius']), int(data['Star 2']['temperature']))
+star1: Star = Star(*[float(data['Star 1'][i]) for i in parameters])
+star2: Star = Star(*[float(data['Star 2'][i]) for i in parameters])
+
+T: float = float(data['System']['T'])
+
+system: StarSystem = StarSystem(star1, star2, T)
