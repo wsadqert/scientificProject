@@ -11,14 +11,14 @@ data.read('./data/data.inf')
 
 
 class Star:
-	def __init__(self, radius, temperature):
-		self.radius: int = radius
-		self.temperature: int = temperature
-		self.L: float = 4 * pi * sigma_sb * radius**2 * temperature**4
-		self.abs_magnitude = abs_magnitude_sun - (log(self.L / L_sun))/0.4
+	def __init__(self, radius: float, temperature: float):
+		self.radius: float = radius
+		self.temperature: float = temperature
+		self.L: float = 4 * pi * sigma_sb.value * radius**2 * temperature**4
+		self.abs_magnitude: float = abs_magnitude_sun - (log(self.L / L_sun.value))/0.4
 	
 	pass
 
 
-star_1 = dict(data['Star 1'])
-star_2 = dict(data['Star 2'])
+star_1 = Star(int(data['Star 1']['radius']), int(data['Star 1']['temperature']))
+star_2 = Star(int(data['Star 2']['radius']), int(data['Star 2']['temperature']))
