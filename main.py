@@ -1,6 +1,6 @@
 import configparser
 from typing import Final
-from data.star import Star, StarSystem
+from modeling.star import Star, StarSystem
 
 data = configparser.ConfigParser()
 data.read('./data/data.inf')
