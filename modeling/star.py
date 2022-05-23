@@ -11,8 +11,14 @@ class Star:
 		
 		self.square = pi * radius ** 2
 		self.square_full = 4 * self.square
-		self.L: float = self.square_full * sigma_sb.value * temperature ** 4
-		self.abs_magnitude: float = abs_magnitude_sun - log(self.L / L_sun.value) / 0.4
+	
+	@property
+	def L(self) -> float:
+		return self.square_full * sigma_sb.value * self.temperature ** 4
+	
+	@property
+	def abs_magnitude(self) -> float:
+		return abs_magnitude_sun - log(self.L / L_sun.value) / 0.4
 
 
 class StarSystem:
@@ -20,4 +26,3 @@ class StarSystem:
 		self.T: float = T
 		self.mass: float = star1.mass + star2.mass
 		self.L = star1.L + star2.L
-		

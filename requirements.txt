@@ -1,3 +1,4 @@
-numpy~=1.22.3
+numpy~=1.22.4
 matplotlib~=3.5.2
 astropy~=5.0.4
+pip~=22.1.1
