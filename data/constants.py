@@ -1,1 +1,1 @@
-abs_magnitude_sun = 4.83
+abs_magnitude_sun = 4.75

@@ -3,7 +3,7 @@ from typing import Final
 from modeling.star import Star, StarSystem
 
 data = configparser.ConfigParser()
-data.read('./data/data.inf')
+data.read('./data/data.ini')
 
 parameters: Final[tuple[str, str, str]] = ('Radius', 'Temperature', 'Mass')
 
