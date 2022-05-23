@@ -1,5 +1,8 @@
 from math import pi, log
-from astropy.constants import sigma_sb, L_sun
+
+from astropy.constants.codata2018 import G, sigma_sb
+from astropy.constants.iau2015 import L_sun
+
 from data.constants import *
 
 
@@ -26,3 +29,4 @@ class StarSystem:
 		self.T: float = T
 		self.mass: float = star1.mass + star2.mass
 		self.L = star1.L + star2.L
+		self.a = ((self.T ** 2 * G * self.mass)/(4 * pi **2)) ** 1/3
