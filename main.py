@@ -13,3 +13,5 @@ star2: Star = Star(*[float(data['Star 2'][i]) for i in parameters])
 T: float = float(data['System']['T'])
 
 system: StarSystem = StarSystem(star1, star2, T)
+
+print(system.calculate_transit(star1, star2))

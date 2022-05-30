@@ -4,6 +4,7 @@ from astropy.constants.codata2018 import G, sigma_sb
 from astropy.constants.iau2015 import L_sun
 
 from data.constants import *
+import modeling.transit as transit
 
 
 class Star:
@@ -29,4 +30,7 @@ class StarSystem:
 		self.T: float = T
 		self.mass: float = star1.mass + star2.mass
 		self.L = star1.L + star2.L
-		self.a = ((self.T ** 2 * G * self.mass)/(4 * pi **2)) ** 1/3
+		self.a = ((self.T ** 2 * G * self.mass) / (4 * pi ** 2)) ** 1 / 3
+	
+		self.calculate_transit = transit.calculate_transit
+		self.calculate_touch = transit.calculate_touch
