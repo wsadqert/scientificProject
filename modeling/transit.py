@@ -26,9 +26,11 @@ def calculate_touch(star_system: st.StarSystem, star_front: st.Star, star_back: 
 		raise AttributeError
 
 	if star_front.radius < abs(star_front.radius - star_back.radius):
+		# see `src/image_1.png`
 		return calculate_transit(star_front, star_back)
 
 	if star_front.radius + star_back.radius < star_front.radius:
+		# see `src/image_2.png`
 		return {'L': star_system.L, 'magnitude': star_system.abs_magnitude}
 	
 	L_total: Final[float] = ...
