@@ -5,8 +5,8 @@ from modeling.star import Star, StarSystem
 data = configparser.ConfigParser()
 data.read('./data/data.ini')
 
-parameters_star: Final[tuple[str, str, str]] = ('Radius', 'Temperature', 'Mass')
-parameters_system: Final[tuple[str, str, str]] = ('Period', 'Eccentricity', 'i')
+parameters_star: Final[tuple[str, ...]] = tuple(data['Star 1'].keys())
+parameters_system: Final[tuple[str, ...]] = tuple(data['System'].keys())
 
 star1: Star = Star(*[float(data['Star 1'][i]) for i in parameters_star])
 star2: Star = Star(*[float(data['Star 2'][i]) for i in parameters_star])
