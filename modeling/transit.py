@@ -9,8 +9,12 @@ import modeling.star as st
 from data.constants import *
 
 
-def calculate_transit(star_front: st.Star, star_back: st.Star) -> dict[str, float]:
+def calculate_transit(star_system: st.StarSystem, star_front: st.Star, star_back: st.Star) -> dict[str, float]:
 	"""Calculates absolute magnitude of star system at transit time"""
+	
+	if (star_front != star_system.star1 and star_front != star_system.star2) or \
+		(star_back != star_system.star1 and star_back != star_system.star2):
+		raise AttributeError
 	
 	if star_front.radius >= star_back.radius:
 		return {'L': star_front.L, 'magnitude': star_front.abs_magnitude}
@@ -24,18 +28,18 @@ def calculate_touch(star_system: st.StarSystem, star_front: st.Star, star_back: 
 	if (star_front != star_system.star1 and star_front != star_system.star2) or \
 			(star_back != star_system.star1 and star_back != star_system.star2):
 		raise AttributeError
-
-	if star_front.radius < abs(star_front.radius - star_back.radius):
+	
+	if x < abs(star_front.radius - star_back.radius):
 		# see `src/image_1.png`
-		return calculate_transit(star_front, star_back)
-
-	if star_front.radius + star_back.radius < star_front.radius:
+		return calculate_transit(star_system, star_front, star_back)
+	
+	if star_front.radius + star_back.radius < x:
 		# see `src/image_2.png`
 		return {'L': star_system.L, 'magnitude': star_system.abs_magnitude}
-
+	
 	# see `src/image_3.png`
-
+	
 	L_total: Final[float] = ...
 	abs_magnitude: Final[float] = ...
-
+	
 	return {'L': L_total, 'magnitude': abs_magnitude}
