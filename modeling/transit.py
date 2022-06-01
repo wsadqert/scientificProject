@@ -32,7 +32,9 @@ def calculate_touch(star_system: st.StarSystem, star_front: st.Star, star_back: 
 	if star_front.radius + star_back.radius < star_front.radius:
 		# see `src/image_2.png`
 		return {'L': star_system.L, 'magnitude': star_system.abs_magnitude}
-	
+
+	# see `src/image_3.png`
+
 	L_total: Final[float] = ...
 	abs_magnitude: Final[float] = ...
 
