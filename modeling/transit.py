@@ -20,12 +20,18 @@ def calculate_transit(star_front: st.Star, star_back: st.Star) -> dict[str, floa
 	return {'L': L_total, 'magnitude': abs_magnitude}
 
 
-def calculate_touch(star_front: st.Star, star_back: st.Star, x: float) -> dict[str, float]:
+def calculate_touch(star_system: st.StarSystem, star_front: st.Star, star_back: st.Star, x: float) -> dict[str, float]:
+	if (star_front != star_system.star1 and star_front != star_system.star2) or \
+			(star_back != star_system.star1 and star_back != star_system.star2):
+		raise AttributeError
+
+	if star_front.radius < abs(star_front.radius - star_back.radius):
+		return calculate_transit(star_front, star_back)
+
+	if star_front.radius + star_back.radius < star_front.radius:
+		return {'L': star_system.L, 'magnitude': star_system.abs_magnitude}
 	
-	if abs(star_front.radius - star_back.radius) < star_front.radius < star_front.radius + star_back.radius:
-		pass
-	
-	L_total: Final[float]
-	abs_magnitude: Final[float]
+	L_total: Final[float] = ...
+	abs_magnitude: Final[float] = ...
 
 	return {'L': L_total, 'magnitude': abs_magnitude}

@@ -1,5 +1,4 @@
 from math import log10, pi
-from typing import Any
 
 from astropy.constants.codata2018 import G, sigma_sb
 from astropy.constants.iau2015 import L_sun
@@ -12,10 +11,10 @@ class Star:
 	def __init__(self, radius: float, temperature: float, mass: float):
 		self.radius: float = radius
 		self.temperature: float = temperature
-		self.mass = mass
+		self.mass: float = mass
 		
-		self.square = pi * radius ** 2
-		self.square_full = 4 * self.square
+		self.square: float = pi * radius ** 2
+		self.square_full: float = 4 * self.square
 	
 	@property
 	def L(self) -> float:

@@ -1,2 +1,2 @@
-astropy~=5.0.4
+astropy~=5.1
 typing~=3.7.4.3
