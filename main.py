@@ -14,3 +14,4 @@ star2: Star = Star(*[float(data['Star 2'][i]) for i in parameters_star])
 system: StarSystem = StarSystem(star1, star2, *[float(data['System'][i]) for i in parameters_system])
 
 print(system.calculate_transit(star1, star2), system.abs_magnitude)
+print(system.calculate_touch(star1, star2, star1.radius - 0.5 * star2.radius))

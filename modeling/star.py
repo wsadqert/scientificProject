@@ -37,9 +37,13 @@ class StarSystem:
 		self.mass: float = star1.mass + star2.mass
 		self.L: float = star1.L + star2.L
 		self.a: float = ((self.period ** 2 * G * self.mass) / (4 * pi ** 2)) ** 1 / 3
-		
-		self.calculate_transit = transit.calculate_transit
-		self.calculate_touch = transit.calculate_touch
+	
+	def calculate_transit(self, star1: Star, star2: Star):
+		return transit.calculate_transit(self, star1, star2)
+	
+	def calculate_touch(self, star1: Star, star2: Star, x: float):
+		return transit.calculate_touch(self, star1, star2, x)
+	
 	
 	@property
 	def abs_magnitude(self) -> float:
