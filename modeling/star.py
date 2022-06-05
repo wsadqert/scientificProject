@@ -1,4 +1,4 @@
-from math import log10, pi
+from math import log10, pi, sqrt
 
 from astropy.constants.codata2018 import G, sigma_sb
 from astropy.constants.iau2015 import L_sun
@@ -6,9 +6,13 @@ from data.constants import *
 
 import modeling.transit as transit
 
+L_sun = L_sun.to_value()
+G = G.to_value()
+sigma_sb = sigma_sb.to_value()
+
 
 def abs_magnitude(L: float):
-	return abs_magnitude_sun - log10(L / L_sun.value) / 0.4
+	return abs_magnitude_sun - log10(L / L_sun) / 0.4
 
 
 class Star:
@@ -24,21 +28,31 @@ class Star:
 	
 	@property
 	def L(self) -> float:
-		return self.square_full * sigma_sb.value * self.temperature ** 4
+		return self.square_full * sigma_sb * self.temperature ** 4
 	
 
 class StarSystem:
-	def __init__(self, star1: Star, star2: Star, period: float, eccentricity: float, i: float):
+	def __init__(self, star1: Star, star2: Star, value: float, eccentricity: float, i: float, params: tuple[str, ...]):
 		self.star1: Star = star1
 		self.star2: Star = star2
 		
-		self.period: float = period
 		self.e: float = eccentricity
 		self.i: float = i
 		
 		self.mass: float = star1.mass + star2.mass
 		self.L: float = star1.L + star2.L
-		self.a: float = ((self.period ** 2 * G * self.mass) / (4 * pi ** 2)) ** 1 / 3
+		
+		if 'period' in params:
+			self.period = value
+			self.a: float = ((self.period ** 2 * G * self.mass) / (4 * pi ** 2)) ** (1 / 3)
+		
+		elif 'a' in params:
+			self.a: float = value
+			self.period: float = sqrt((4 * pi**2 * self.a**3) / (G * self.mass))
+		
+		else:
+			from ctypes import ArgumentError
+			raise ArgumentError("not enough parameters")
 	
 	def calculate_transit(self, star1: Star, star2: Star):
 		return transit.calculate_transit(self, star1, star2)

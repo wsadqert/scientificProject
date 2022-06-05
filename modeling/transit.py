@@ -8,6 +8,8 @@ from data.constants import *
 
 import modeling.star as star
 
+L_sun = L_sun.to_value()
+
 
 def calculate_transit(star_system: star.StarSystem, star_front: star.Star, star_back: star.Star) -> dict[str, float]:
 	"""Calculates absolute magnitude of star system at transit time"""
@@ -20,7 +22,7 @@ def calculate_transit(star_system: star.StarSystem, star_front: star.Star, star_
 		return {'L': star_front.L, 'magnitude': star_front.abs_magnitude}
 	
 	L_total: Final[float] = star_front.L + star_back.L * (star_back.square - star_front.square) / star_back.square
-	abs_magnitude: Final[float] = abs_magnitude_sun - log10(L_total / L_sun.value) / 0.4
+	abs_magnitude: Final[float] = abs_magnitude_sun - log10(L_total / L_sun) / 0.4
 	return {'L': L_total, 'magnitude': abs_magnitude}
 
 
@@ -28,7 +30,7 @@ def calculate_touch(star_system: star.StarSystem, star_front: star.Star, star_ba
 	def calculate_intersection(R1: float, R2: float, D: float):
 		# see `src/intersection.gif`
 		
-		O2C: float = (R1**2 - R2**2 - D**2) / (2*D)
+		O2C: float = (R2**2 - R1**2 + D**2) / (2*D)
 		O1C: float = D - O2C
 		S_triangle1: float = sqrt(R1**2 - O1C**2) * (O1C / 2)
 		S_triangle2: float = sqrt(R2**2 - O2C**2) * (O2C / 2)
@@ -40,6 +42,7 @@ def calculate_touch(star_system: star.StarSystem, star_front: star.Star, star_ba
 		S_sector_2: float = pi * R2**2 * (2 * alpha2)/360
 		
 		return (S_sector_1 - S_triangle1) + (S_sector_2 - S_triangle2)
+	
 	calculate_touch.calculate_intersection = calculate_intersection
 	
 	if (star_front != star_system.star1 and star_front != star_system.star2) or \
@@ -48,7 +51,7 @@ def calculate_touch(star_system: star.StarSystem, star_front: star.Star, star_ba
 	
 	if x < abs(star_front.radius - star_back.radius):
 		# see `src/image_1.png`
-		return calculate_transit(star_system, star_front, star_back)
+		return star_system.calculate_transit(star_front, star_back)
 	
 	if star_front.radius + star_back.radius < x:
 		# see `src/image_2.png`
