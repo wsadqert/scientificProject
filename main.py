@@ -23,9 +23,25 @@ star2: Star = Star(*[float(data['Star 2'][i]) for i in parameters_star])
 system: StarSystem = StarSystem(star1, star2, *[float(data['System'][i]) for i in parameters_system], parameters_system)
 mags = []
 
-for fi in tqdm(np.linspace(0, 360, 360*1000)):
+
+def normalize_angle(angle: float):
+	while not (0 <= angle < 360):
+		if angle > 360:
+			angle -= 360
+		if angle < 0:
+			angle += 360
+	return angle
+
+
+for fi in tqdm(np.linspace(-30, 390, 420 * 10000)):
 	x: float = system.a * abs(sin(radians(fi)))
-	qwerty = system.calculate_touch(star2, star1, x)
+	
+	if 0 <= normalize_angle(fi) <= 90 or 270 <= normalize_angle(fi) <= 360:
+		star_front, star_back = star2, star1
+	else:
+		star_front, star_back = star1, star2
+	
+	qwerty = system.calculate_touch(star_front, star_back, x)
 	# print(fi)
 	mags.append(qwerty['magnitude'])
 
@@ -34,9 +50,15 @@ for fi in tqdm(np.linspace(0, 360, 360*1000)):
 
 rcParams['mathtext.fontset'] = 'cm'
 plt.grid(True, ls='--')
+
 plt.title('Кривая блеска двойной звёздной системы')
+
 plt.xlabel(r'$\varphi$')
+plt.xticks([i for i in range(-30, 390, 30)])
+
 plt.ylabel(r'$M_{abs}$')
 plt.gca().invert_yaxis()
-plt.plot(np.linspace(0, 360, 360*1000), mags)
+
+plt.plot(np.linspace(-30, 390, 420 * 10000), mags)
+
 plt.show()
