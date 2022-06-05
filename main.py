@@ -3,7 +3,7 @@ from math import radians, sin
 from typing import Final
 
 import numpy as np
-from matplotlib import pyplot as plt
+from matplotlib import pyplot as plt, rcParams
 from rich.traceback import install
 from tqdm import tqdm
 
@@ -32,6 +32,7 @@ for fi in tqdm(np.linspace(0, 360, 360*1000)):
 # print(system.calculate_transit(star1, star2), system.abs_magnitude)
 # print(system.calculate_touch(star1, star2, star1.radius - 0.5 * star2.radius))
 
+rcParams['mathtext.fontset'] = 'cm'
 plt.grid(True, ls='--')
 plt.title('Кривая блеска двойной звёздной системы')
 plt.xlabel(r'$\varphi$')
