@@ -3,12 +3,9 @@ from __future__ import annotations
 from math import acos, degrees, log10, pi, sqrt
 from typing import Final
 
-from astropy.constants.iau2015 import L_sun
 from data.constants import *
 
 import modeling.star as star
-
-L_sun = L_sun.to_value()
 
 
 def calculate_transit(star_system: star.StarSystem, star_front: star.Star, star_back: star.Star) -> dict[str, float]:
