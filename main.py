@@ -41,9 +41,9 @@ for fi in tqdm(np.linspace(-30, 390, 420 * 10000)):
 	else:
 		star_front, star_back = star1, star2
 	
-	qwerty = system.calculate_touch(star_front, star_back, x)
+	result = system.calculate_touch(star_front, star_back, x)
 	# print(fi)
-	mags.append(qwerty['magnitude'])
+	mags.append(result['magnitude'])
 
 # print(system.calculate_transit(star1, star2), system.abs_magnitude)
 # print(system.calculate_touch(star1, star2, star1.radius - 0.5 * star2.radius))
@@ -54,7 +54,7 @@ plt.grid(True, ls='--')
 plt.title('Кривая блеска двойной звёздной системы')
 
 plt.xlabel(r'$\varphi$')
-plt.xticks([i for i in range(-30, 390, 30)])
+plt.xticks([i for i in range(-30, 390, 30)] + [390])
 
 plt.ylabel(r'$M_{abs}$')
 plt.gca().invert_yaxis()

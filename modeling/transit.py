@@ -27,8 +27,9 @@ def calculate_touch(star_system: star.StarSystem, star_front: star.Star, star_ba
 	def calculate_intersection(R1: float, R2: float, D: float):
 		# see `src/intersection.gif`
 		
-		O2C: float = (R2**2 - R1**2 + D**2) / (2*D)
-		O1C: float = D - O2C
+		O2C: float = abs(R2**2 - R1**2 + D**2) / (2*D)
+		O1C: float = abs(D - O2C)
+
 		S_triangle1: float = sqrt(R1**2 - O1C**2) * (O1C / 2)
 		S_triangle2: float = sqrt(R2**2 - O2C**2) * (O2C / 2)
 		

@@ -53,8 +53,7 @@ class StarSystem:
 	
 	def calculate_touch(self, star1: Star, star2: Star, x: float):
 		return transit.calculate_touch(self, star1, star2, x)
-	
-	
+
 	@property
 	def abs_magnitude(self) -> float:
 		return -2.5 * log10(10 ** (-0.4 * self.star1.abs_magnitude) + 10 ** (-0.4 * self.star2.abs_magnitude))
