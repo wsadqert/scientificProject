@@ -7,6 +7,7 @@ from matplotlib import pyplot as plt, rcParams
 from rich.traceback import install
 from tqdm import tqdm
 
+import modeling
 from modeling.star import Star, StarSystem
 
 install(show_locals=True, width=300)

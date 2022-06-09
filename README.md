@@ -9,5 +9,4 @@
 
 #### Используемые интернет-источники:
 - Для решения геометрической задачи:
-  1. https://otvet.mail.ru/question/308562
-  2. https://forum.sources.ru/index.php?showtopic=9381
+  1. https://forum.sources.ru/index.php?showtopic=9381
