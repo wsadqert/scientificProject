@@ -1,7 +1,9 @@
 from __future__ import annotations
 
-from math import acos, degrees, log10, pi, sqrt
+from math import acos, log10, pi, sqrt, cos, sin, degrees, radians
 from typing import Final
+
+from scipy.interpolate import interp1d
 
 from data.constants import *
 
@@ -26,33 +28,26 @@ def calculate_transit(star_system: star.StarSystem, star_front: star.Star, star_
 def calculate_touch(star_system: star.StarSystem, star_front: star.Star, star_back: star.Star, x: float) -> dict[str, float]:
 	def calculate_intersection(R1: float, R2: float, D: float):
 		"""R1 <= R2"""
-		# see `/src/intersection.gif`, `/src/geometry_solution.png`
+		# see `/src/intersection.gif`, `/src/geometry_solution.jpeg`
 		
-		O2C: float = (- R1**2 + R2**2 + D**2) / (2*D)
+		def calculate_cos_theorem(r1: float, r2: float, d: float):
+			return degrees(acos((d**2 + r1**2 - r2**2)/(2*d*r1)))
 		
-		out: bool = D >= R2
+		alpha1: float = calculate_cos_theorem(R1, R2, D)
+		alpha2: float = calculate_cos_theorem(R2, R1, D)
 		
-		if out:
-			O1C: float = (+ R1**2 - R2**2 + D**2) / (2*D)
-		else:
-			O1C: float = (- R1**2 + R2**2 - D**2) / (2*D)
+		# print(alpha1, alpha2)
 
-		S_triangle1: float = sqrt(R1**2 - O1C**2) * (O1C / 2)
-		S_triangle2: float = sqrt(R2**2 - O2C**2) * (O2C / 2)
+		S_sector_1: float = (alpha1 * pi * R1**2) / 360
+		S_sector_2: float = (alpha2 * pi * R2**2) / 360
 		
-		alpha1: float = degrees(acos(O1C / R1))
-		alpha2: float = degrees(acos(O2C / R2))
+		S_triangle1: float = 1/2 * R1**2 * cos(radians(alpha1)) * sin(radians(alpha1))
+		S_triangle2: float = 1/2 * R2**2 * cos(radians(alpha2)) * sin(radians(alpha2))
 		
-		if not out:
-			alpha1 = 180 - alpha1
+		A1: float = S_sector_1 - S_triangle1
+		A2: float = S_sector_2 - S_triangle2
 		
-		S_sector_1: float = pi * R1**2 * (2 * alpha1)/360
-		S_sector_2: float = pi * R2**2 * (2 * alpha2)/360
-		
-		if out:
-			return (S_sector_1 - S_triangle1) + (S_sector_2 - S_triangle2)
-		else:
-			return (S_sector_1 - S_triangle1) + (S_sector_2 + S_triangle2)
+		return 2 * (A1 + A2)
 	
 	calculate_touch.calculate_intersection = calculate_intersection
 	
@@ -74,7 +69,9 @@ def calculate_touch(star_system: star.StarSystem, star_front: star.Star, star_ba
 	max_radius = max(star_front.radius, star_back.radius)
 	min_radius = min(star_front.radius, star_back.radius)
 	
-	L_total: Final[float] = star_front.L + star_back.L * (star_back.square - calculate_intersection(min_radius, max_radius, x)) / star_back.square
+	interpolator = interp1d((0, star_back.square), (star_back.L, 0))
+	
+	L_total: Final[float] = star_front.L + interpolator(calculate_intersection(min_radius, max_radius, x))
 	abs_magnitude: Final[float] = star.abs_magnitude(L_total)
 	
 	return {'L': L_total, 'magnitude': abs_magnitude}

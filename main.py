@@ -34,7 +34,7 @@ def normalize_angle(angle: float):
 	return angle
 
 
-for fi in tqdm(np.linspace(-30, 390, 420 * 10000)):
+for fi in tqdm(np.linspace(-30, 390, 420 * 10000, endpoint=True)):
 	x: float = system.a * abs(sin(radians(fi)))
 	
 	if 0 <= normalize_angle(fi) <= 90 or 270 <= normalize_angle(fi) <= 360:
@@ -60,6 +60,6 @@ plt.xticks([i for i in range(-30, 390, 30)] + [390])
 plt.ylabel(r'$M_{abs}$')
 plt.gca().invert_yaxis()
 
-plt.plot(np.linspace(-30, 390, 420 * 10000), mags)
+plt.plot(np.linspace(-30, 390, 420 * 10000, endpoint=True), mags)
 
 plt.show()
