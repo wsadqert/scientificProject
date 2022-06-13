@@ -23,7 +23,11 @@ star1: Star = Star(*[float(data['Star 1'][i]) for i in parameters_star])
 star2: Star = Star(*[float(data['Star 2'][i]) for i in parameters_star])
 
 system: StarSystem = StarSystem(star1, star2, *[float(data['System'][i]) for i in parameters_system], parameters_system)
+
+dt = float(data['General']['dt'])
 mags = []
+fi = -30
+r = system.q
 
 
 def normalize_angle(angle: float):
@@ -35,7 +39,7 @@ def normalize_angle(angle: float):
 	return angle
 
 
-#for t in tqdm(np.arange(-1/12 * system.period, 13/12 * system.period, dt)):
+# for t in tqdm(np.arange(-1/12 * system.period, 13/12 * system.period, dt)):
 #	fi += dt * sqrt(G * system.mass * system.p) / (r**2)
 #	pass
 
@@ -51,8 +55,9 @@ for fi in tqdm(np.linspace(-30, 390, 420 * 10000, endpoint=True)):
 	result = system.calculate_touch(star_front, star_back, x)
 	# print(fi)
 	mags.append(result['magnitude'])
+
 t1 = time()
-print(t1-t0)
+print(t1 - t0)
 # print(system.calculate_transit(star1, star2), system.abs_magnitude)
 # print(system.calculate_touch(star1, star2, star1.radius - 0.5 * star2.radius))
 
@@ -68,5 +73,6 @@ plt.ylabel(r'$M_{abs}$')
 plt.gca().invert_yaxis()
 
 plt.plot(np.linspace(-30, 390, 420 * 10000, endpoint=True), mags)
+# plt.plot(np.arange(-1 / 12 * system.period, 13 / 12 * system.period, dt), mags)
 
 plt.show()
