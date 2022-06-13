@@ -1,5 +1,6 @@
 import configparser
-from math import radians, sin
+from math import radians, sin, sqrt
+from time import time
 from typing import Final
 
 import numpy as np
@@ -7,8 +8,8 @@ from matplotlib import pyplot as plt, rcParams
 from rich.traceback import install
 from tqdm import tqdm
 
-import modeling
 from modeling.star import Star, StarSystem
+from data.constants import *
 
 install(show_locals=True, width=300)
 
@@ -34,6 +35,11 @@ def normalize_angle(angle: float):
 	return angle
 
 
+#for t in tqdm(np.arange(-1/12 * system.period, 13/12 * system.period, dt)):
+#	fi += dt * sqrt(G * system.mass * system.p) / (r**2)
+#	pass
+
+t0 = time()
 for fi in tqdm(np.linspace(-30, 390, 420 * 10000, endpoint=True)):
 	x: float = system.a * abs(sin(radians(fi)))
 	
@@ -45,7 +51,8 @@ for fi in tqdm(np.linspace(-30, 390, 420 * 10000, endpoint=True)):
 	result = system.calculate_touch(star_front, star_back, x)
 	# print(fi)
 	mags.append(result['magnitude'])
-
+t1 = time()
+print(t1-t0)
 # print(system.calculate_transit(star1, star2), system.abs_magnitude)
 # print(system.calculate_touch(star1, star2, star1.radius - 0.5 * star2.radius))
 

@@ -3,7 +3,7 @@ from __future__ import annotations
 from math import acos, log10, pi, sqrt, cos, sin, degrees, radians
 from typing import Final
 
-from scipy.interpolate import interp1d
+# from scipy.interpolate import interp1d
 
 from data.constants import *
 
@@ -68,10 +68,11 @@ def calculate_touch(star_system: star.StarSystem, star_front: star.Star, star_ba
 	
 	max_radius = max(star_front.radius, star_back.radius)
 	min_radius = min(star_front.radius, star_back.radius)
-	
-	interpolator = interp1d((0, star_back.square), (star_back.L, 0))
-	
-	L_total: Final[float] = star_front.L + interpolator(calculate_intersection(min_radius, max_radius, x))
+
+	def interpolator(value, data):
+		return data[0][1] + (value - data[0][0]) * ((data[1][1] - data[0][1]) / (data[1][0] - data[0][0]))
+
+	L_total: Final[float] = star_front.L + interpolator(calculate_intersection(min_radius, max_radius, x), ((0, star_back.L), (star_back.square, 0)))
 	abs_magnitude: Final[float] = star.abs_magnitude(L_total)
 	
 	return {'L': L_total, 'magnitude': abs_magnitude}

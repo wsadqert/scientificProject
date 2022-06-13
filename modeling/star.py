@@ -30,23 +30,25 @@ class StarSystem:
 		self.star1: Star = star1
 		self.star2: Star = star2
 		
-		self.e: float = eccentricity
-		self.i: float = i
-		
 		self.mass: float = star1.mass + star2.mass
 		self.L: float = star1.L + star2.L
 		
 		if 'period' in params:
 			self.period = value
 			self.a: float = ((self.period ** 2 * G * self.mass) / (4 * pi ** 2)) ** (1 / 3)
-		
 		elif 'a' in params:
 			self.a: float = value
 			self.period: float = sqrt((4 * pi**2 * self.a**3) / (G * self.mass))
-		
 		else:
 			from ctypes import ArgumentError
 			raise ArgumentError("not enough parameters")
+
+		self.e: float = eccentricity
+		self.q = self.a * (1 - self.e)
+		self.Q = self.a * (1 + self.e)
+
+		self.i: float = i
+		self.p = self.a * (1 - self.e**2)
 	
 	def calculate_transit(self, star1: Star, star2: Star):
 		return transit.calculate_transit(self, star1, star2)
