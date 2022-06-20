@@ -1,5 +1,3 @@
-from math import log10, pi, sqrt
-
 import modeling.transit as transit
 from data.constants import *
 

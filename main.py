@@ -1,5 +1,4 @@
 import configparser
-from math import radians, sin
 from time import time
 from typing import Final
 
@@ -9,6 +8,7 @@ from rich.traceback import install
 from tqdm import tqdm
 
 from modeling.star import Star, StarSystem
+from modeling.time2phi import circular_orbit
 
 install(show_locals=True, width=300)
 
@@ -38,12 +38,17 @@ def normalize_angle(angle: float):
 	return angle
 
 
-# for t in tqdm(np.arange(-1/12 * system.period, 13/12 * system.period, dt)):
-#	fi += dt * sqrt(G * system.mass * system.p) / (r**2)
-#	pass
-
 t0 = time()
-for fi in tqdm(np.linspace(-30, 390, 420 * 10000, endpoint=True)):
+
+periods = np.arange(-1 / 12 * system.period, 13 / 12 * system.period, dt)
+
+# x_axis_data = np.linspace(-30, 390, 420 * 1000, endpoint=True)
+x_axis_data = []
+
+for t in tqdm(periods):
+# for fi in tqdm(x_axis_data):
+	assert system.e == 0  # while in development
+	fi = circular_orbit(t, system.period)
 	x: float = system.a * abs(sin(radians(fi)))
 	
 	if 0 <= normalize_angle(fi) <= 90 or 270 <= normalize_angle(fi) <= 360:
@@ -52,7 +57,8 @@ for fi in tqdm(np.linspace(-30, 390, 420 * 10000, endpoint=True)):
 		star_front, star_back = star1, star2
 	
 	result = system.calculate_touch(star_front, star_back, x)
-	# print(fi)
+
+	x_axis_data.append(fi)
 	mags.append(result['magnitude'])
 
 t1 = time()
@@ -71,7 +77,7 @@ plt.xticks([i for i in range(-30, 390, 30)] + [390])
 plt.ylabel(r'$M_{abs}$')
 plt.gca().invert_yaxis()
 
-plt.plot(np.linspace(-30, 390, 420 * 10000, endpoint=True), mags)
+plt.plot(x_axis_data, mags)
 # plt.plot(np.arange(-1 / 12 * system.period, 13 / 12 * system.period, dt), mags)
 
 plt.show()

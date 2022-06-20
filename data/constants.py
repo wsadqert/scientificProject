@@ -5,4 +5,4 @@ L_sun = L_sun.to_value()
 G = G.to_value()
 sigma_sb = sigma_sb.to_value()
 
-abs_magnitude_sun = 4.75
+abs_magnitude_sun: float = 4.75
