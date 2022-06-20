@@ -9,4 +9,7 @@
     <option name="format" value="PLAIN" />
     <option name="myDocStringFormat" value="Plain" />
   </component>
+  <component name="ReSTService">
+    <option name="TXT_IS_RST" value="true" />
+  </component>
 </module>

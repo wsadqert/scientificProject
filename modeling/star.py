@@ -1,8 +1,7 @@
 from math import log10, pi, sqrt
 
-from data.constants import *
-
 import modeling.transit as transit
+from data.constants import *
 
 
 def abs_magnitude(L: float):
@@ -26,7 +25,10 @@ class Star:
 	
 
 class StarSystem:
-	def __init__(self, star1: Star, star2: Star, value: float, eccentricity: float, i: float, params: tuple[str, ...]):
+	def __init__(self, star1: Star, star2: Star, value: float, eccentricity: float, inclination: float, periapsis_argument: float, ascending_node_longitude: float, params: tuple[str, ...]):
+		"""
+		:param value: semi-major axis OR period
+		"""
 		self.star1: Star = star1
 		self.star2: Star = star2
 		
@@ -34,9 +36,9 @@ class StarSystem:
 		self.L: float = star1.L + star2.L
 		
 		if 'period' in params:
-			self.period = value
+			self.period: float = value
 			self.a: float = ((self.period ** 2 * G * self.mass) / (4 * pi ** 2)) ** (1 / 3)
-		elif 'a' in params:
+		elif 'semi-major_axis' in params:
 			self.a: float = value
 			self.period: float = sqrt((4 * pi**2 * self.a**3) / (G * self.mass))
 		else:
@@ -44,11 +46,13 @@ class StarSystem:
 			raise ArgumentError("not enough parameters")
 
 		self.e: float = eccentricity
-		self.q = self.a * (1 - self.e)
-		self.Q = self.a * (1 + self.e)
-
-		self.i: float = i
-		self.p = self.a * (1 - self.e**2)
+		self.inclination: float = inclination
+		self.periapsis_argument: float = periapsis_argument
+		self.ascending_node_longitude: float = ascending_node_longitude
+		
+		self.q: float = self.a * (1 - self.e)
+		self.Q: float = self.a * (1 + self.e)
+		self.p: float = self.a * (1 - self.e**2)
 	
 	def calculate_transit(self, star1: Star, star2: Star):
 		return transit.calculate_transit(self, star1, star2)

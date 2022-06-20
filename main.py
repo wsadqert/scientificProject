@@ -1,5 +1,5 @@
 import configparser
-from math import radians, sin, sqrt
+from math import radians, sin
 from time import time
 from typing import Final
 
@@ -9,7 +9,6 @@ from rich.traceback import install
 from tqdm import tqdm
 
 from modeling.star import Star, StarSystem
-from data.constants import *
 
 install(show_locals=True, width=300)
 
@@ -24,10 +23,10 @@ star2: Star = Star(*[float(data['Star 2'][i]) for i in parameters_star])
 
 system: StarSystem = StarSystem(star1, star2, *[float(data['System'][i]) for i in parameters_system], parameters_system)
 
-dt = float(data['General']['dt'])
-mags = []
-fi = -30
-r = system.q
+dt: float = float(data['General']['dt'])
+mags: list[float] = []
+fi: float = -30
+r: float = system.p
 
 
 def normalize_angle(angle: float):
