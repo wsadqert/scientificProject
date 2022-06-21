@@ -6,12 +6,12 @@ import modeling.star as star
 from data.constants import *
 
 
-def calculate_intersection(R1: float, R2: float, D: float):
+def calculate_intersection(R1: float, R2: float, D: float) -> float:
 	"""R1 <= R2"""
 	
 	# see `/src/intersection.gif`, `/src/geometry_solution.jpeg`
 	
-	def calculate_cos_theorem(r1: float, r2: float, d: float):
+	def calculate_cos_theorem(r1: float, r2: float, d: float) -> float:
 		return degrees(acos((d ** 2 + r1 ** 2 - r2 ** 2) / (2 * d * r1)))
 	
 	alpha1: float = calculate_cos_theorem(R1, R2, D)
@@ -31,7 +31,7 @@ def calculate_intersection(R1: float, R2: float, D: float):
 	return 2 * (A1 + A2)
 
 
-def interpolate(value, data):
+def interpolate(value: float, data: Sequence[Sequence[float], Sequence[float]]) -> float:
 	return data[0][1] + (value - data[0][0]) * ((data[1][1] - data[0][1]) / (data[1][0] - data[0][0]))
 
 

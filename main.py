@@ -1,5 +1,5 @@
 import configparser
-from time import time
+from time import process_time, time
 from typing import Final
 
 import numpy as np
@@ -8,7 +8,11 @@ from rich.traceback import install
 from tqdm import tqdm
 
 from modeling.star import Star, StarSystem
-from modeling.time2phi import circular_orbit
+from modeling.time2phi import *
+from data.constants import *
+
+t0 = process_time()
+t0_real = time()
 
 install(show_locals=True, width=300)
 
@@ -25,8 +29,6 @@ system: StarSystem = StarSystem(star1, star2, *[float(data['System'][i]) for i i
 
 dt: float = float(data['General']['dt'])
 mags: list[float] = []
-fi: float = -30
-r: float = system.p
 
 
 def normalize_angle(angle: float):
@@ -38,17 +40,16 @@ def normalize_angle(angle: float):
 	return angle
 
 
-t0 = time()
+periods: np.ndarray = np.arange(-1 / 12 * system.period, 13 / 12 * system.period, dt)
 
-periods = np.arange(-1 / 12 * system.period, 13 / 12 * system.period, dt)
+x_axis_data: list[float] = []
+# times: list[float] = []
 
-# x_axis_data = np.linspace(-30, 390, 420 * 1000, endpoint=True)
-x_axis_data = []
+t1 = process_time()
+t1_real = time()
 
 for t in tqdm(periods):
-# for fi in tqdm(x_axis_data):
-	assert system.e == 0  # while in development
-	fi = circular_orbit(t, system.period)
+	fi = elliptical_orbit(t, system.period, system.e) + system.periapsis_argument
 	x: float = system.a * abs(sin(radians(fi)))
 	
 	if 0 <= normalize_angle(fi) <= 90 or 270 <= normalize_angle(fi) <= 360:
@@ -57,14 +58,15 @@ for t in tqdm(periods):
 		star_front, star_back = star1, star2
 	
 	result = system.calculate_touch(star_front, star_back, x)
-
-	x_axis_data.append(fi)
+	
+	# times.append(t / system.period)
+	x_axis_data.append(t / system.period)
 	mags.append(result['magnitude'])
 
-t1 = time()
-print(t1 - t0)
-# print(system.calculate_transit(star1, star2), system.abs_magnitude)
-# print(system.calculate_touch(star1, star2, star1.radius - 0.5 * star2.radius))
+t2 = process_time()
+t2_real = time()
+print(f'PROCESSOR TIME:\n{"-" * 15}\n{t2 - t0} seconds in total\n{t2 - t1} seconds calculating\n{t1 - t0} seconds setting up ({(t1 - t0) / (t2 - t1) * 100}%)\n')
+print(f'REAL TIME:\n{"-" * 15}\n{t2_real - t0_real} seconds in total\n{t2_real - t1_real} seconds calculating\n{t1_real - t0_real} seconds setting up ({(t1_real - t0_real) / (t2_real - t1_real) * 100}%)')
 
 rcParams['mathtext.fontset'] = 'cm'
 plt.grid(True, ls='--')
@@ -72,12 +74,14 @@ plt.grid(True, ls='--')
 plt.title('Кривая блеска двойной звёздной системы')
 
 plt.xlabel(r'$\varphi$')
-plt.xticks([i for i in range(-30, 390, 30)] + [390])
+# plt.xticks(range(-30, 390, 30) + [390])  #
+plt.xticks(np.arange(0.0, 1.1, 0.1))
+plt.xlim(-0.1, 1.1)
 
 plt.ylabel(r'$M_{abs}$')
 plt.gca().invert_yaxis()
 
 plt.plot(x_axis_data, mags)
-# plt.plot(np.arange(-1 / 12 * system.period, 13 / 12 * system.period, dt), mags)
+# plt.plot(times, x_axis_data)
 
 plt.show()

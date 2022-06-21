@@ -2,7 +2,7 @@ import modeling.transit as transit
 from data.constants import *
 
 
-def abs_magnitude(L: float):
+def abs_magnitude(L: float) -> float:
 	return abs_magnitude_sun - log10(L / L_sun) / 0.4
 
 
@@ -52,10 +52,10 @@ class StarSystem:
 		self.Q: float = self.a * (1 + self.e)
 		self.p: float = self.a * (1 - self.e**2)
 	
-	def calculate_transit(self, star1: Star, star2: Star):
+	def calculate_transit(self, star1: Star, star2: Star) -> dict[str, float]:
 		return transit.calculate_transit(self, star1, star2)
 	
-	def calculate_touch(self, star1: Star, star2: Star, x: float):
+	def calculate_touch(self, star1: Star, star2: Star, x: float) -> dict[str, float]:
 		return transit.calculate_touch(self, star1, star2, x)
 
 	@property
