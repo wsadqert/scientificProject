@@ -8,7 +8,9 @@
 
 
 #### Используемые интернет-источники:
-1. Для решения геометрической задачи:
-   - https://forum.sources.ru/index.php?showtopic=9381
-2. Для пересчёта времени в истинную аномалию:
-   - https://ru.wikipedia.org/wiki/Уравнение_Кеплера#Приближённые_методы
+1. http://crydee.sai.msu.ru/ak4/Chapt_11_3_154.htm - статья из электронной библиотеки ГАИШ "§ 154. Общие характеристики двойных систем"
+2. https://forum.sources.ru/index.php?showtopic=9381 - тема с форума Sources.Ru
+3. https://ru.wikipedia.org/wiki/Уравнение_Кеплера#Приближённые_методы
+4. Обсуждения на форуме StackOverflow
+	- https://stackoverflow.com/questions/28132936/axes-invert-axis-does-not-work-with-sharey-true-for-matplotlib-subplots
+	- https://stackoverflow.com/questions/56894740/matplotlib-why-does-setting-grid-with-pyplot-setp-causes-error

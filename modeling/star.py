@@ -51,11 +51,13 @@ class StarSystem:
 		self.q: float = self.a * (1 - self.e)
 		self.Q: float = self.a * (1 + self.e)
 		self.p: float = self.a * (1 - self.e**2)
+		
+		assert 0 <= self.e < 1
 	
-	def calculate_transit(self, star1: Star, star2: Star) -> dict[str, float]:
+	def calculate_transit(self, star1: Star, star2: Star) -> float:
 		return transit.calculate_transit(self, star1, star2)
 	
-	def calculate_touch(self, star1: Star, star2: Star, x: float) -> dict[str, float]:
+	def calculate_touch(self, star1: Star, star2: Star, x: float) -> float:
 		return transit.calculate_touch(self, star1, star2, x)
 
 	@property

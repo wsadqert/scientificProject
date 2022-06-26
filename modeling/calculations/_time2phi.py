@@ -1,6 +1,6 @@
 from data.constants import *
 
-__all__ = ['circular_orbit', 'elliptical_orbit']
+__all__ = ['circular_orbit', 'elliptical_orbit', 'time2phi']
 
 
 def circular_orbit(t: float, T: float) -> float:
@@ -8,11 +8,6 @@ def circular_orbit(t: float, T: float) -> float:
 
 
 def elliptical_orbit(t: float, T: float, e: float) -> float:
-	if e == 0:
-		return circular_orbit(t, T)
-
-	assert 0 < e < 1
-	
 	E: float = 0
 	M: float = t / T * 2*pi
 	
@@ -25,3 +20,10 @@ def elliptical_orbit(t: float, T: float, e: float) -> float:
 		phi += 360
 	
 	return phi
+
+
+def time2phi(t: float, T: float, e: float):
+	if e == 0:
+		return circular_orbit(t, T)
+	return elliptical_orbit(t, T, e)
+	

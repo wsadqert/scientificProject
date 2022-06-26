@@ -3,39 +3,11 @@ from __future__ import annotations
 from typing import Final
 
 import modeling.star as star
+from modeling.calculations import calculate_intersection, interpolate
 from data.constants import *
 
 
-def calculate_intersection(R1: float, R2: float, D: float) -> float:
-	"""R1 <= R2"""
-	
-	# see `/src/intersection.gif`, `/src/geometry_solution.jpeg`
-	
-	def calculate_cos_theorem(r1: float, r2: float, d: float) -> float:
-		return degrees(acos((d ** 2 + r1 ** 2 - r2 ** 2) / (2 * d * r1)))
-	
-	alpha1: float = calculate_cos_theorem(R1, R2, D)
-	alpha2: float = calculate_cos_theorem(R2, R1, D)
-	
-	# print(alpha1, alpha2)
-	
-	S_sector_1: float = (alpha1 * pi * R1 ** 2) / 360
-	S_sector_2: float = (alpha2 * pi * R2 ** 2) / 360
-	
-	S_triangle1: float = 1 / 2 * R1 ** 2 * cos(radians(alpha1)) * sin(radians(alpha1))
-	S_triangle2: float = 1 / 2 * R2 ** 2 * cos(radians(alpha2)) * sin(radians(alpha2))
-	
-	A1: float = S_sector_1 - S_triangle1
-	A2: float = S_sector_2 - S_triangle2
-	
-	return 2 * (A1 + A2)
-
-
-def interpolate(value: float, data: Sequence[Sequence[float], Sequence[float]]) -> float:
-	return data[0][1] + (value - data[0][0]) * ((data[1][1] - data[0][1]) / (data[1][0] - data[0][0]))
-
-
-def calculate_transit(star_system: star.StarSystem, star_front: star.Star, star_back: star.Star) -> dict[str, float]:
+def calculate_transit(star_system: star.StarSystem, star_front: star.Star, star_back: star.Star) -> float:
 	"""Calculates absolute magnitude of star system at transit time"""
 	
 	if (star_front != star_system.star1 and star_front != star_system.star2) or \
@@ -43,16 +15,14 @@ def calculate_transit(star_system: star.StarSystem, star_front: star.Star, star_
 		raise AttributeError
 	
 	if star_front.radius >= star_back.radius:
-		return {'L': star_front.L, 'magnitude': star_front.abs_magnitude}
+		return star_front.abs_magnitude
 	
 	L_total: Final[float] = star_front.L + star_back.L * (star_back.square - star_front.square) / star_back.square
 	abs_magnitude: Final[float] = abs_magnitude_sun - log10(L_total / L_sun) / 0.4
-	return {'L': L_total, 'magnitude': abs_magnitude}
+	return abs_magnitude
 
 
-def calculate_touch(star_system: star.StarSystem, star_front: star.Star, star_back: star.Star, x: float) -> dict[str, float]:
-	# calculate_touch.calculate_intersection = calculate_intersection
-	
+def calculate_touch(star_system: star.StarSystem, star_front: star.Star, star_back: star.Star, x: float) -> float:
 	if (star_front != star_system.star1 and star_front != star_system.star2) or \
 		(star_back != star_system.star1 and star_back != star_system.star2):
 		from ctypes import ArgumentError
@@ -64,7 +34,7 @@ def calculate_touch(star_system: star.StarSystem, star_front: star.Star, star_ba
 	
 	if star_front.radius + star_back.radius <= x:
 		# see `/src/image_2.png`
-		return {'L': star_system.L, 'magnitude': star_system.abs_magnitude}
+		return star_system.abs_magnitude
 	
 	# see `/src/image_3.png`
 	
@@ -74,4 +44,4 @@ def calculate_touch(star_system: star.StarSystem, star_front: star.Star, star_ba
 	L_total: Final[float] = star_front.L + interpolate(calculate_intersection(min_radius, max_radius, x), ((0, star_back.L), (star_back.square, 0)))
 	abs_magnitude: Final[float] = star.abs_magnitude(L_total)
 	
-	return {'L': L_total, 'magnitude': abs_magnitude}
+	return abs_magnitude
