@@ -14,3 +14,4 @@
 4. Обсуждения на форуме StackOverflow
 	- https://stackoverflow.com/questions/28132936/axes-invert-axis-does-not-work-with-sharey-true-for-matplotlib-subplots
 	- https://stackoverflow.com/questions/56894740/matplotlib-why-does-setting-grid-with-pyplot-setp-causes-error
+5. https://www.geeksforgeeks.org/how-to-implement-linear-interpolation-in-python/amp/ - учебный материал из ресурса GeeksForGeeks "How to implement linear interpolation in Python?"
