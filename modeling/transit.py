@@ -23,8 +23,7 @@ def calculate_transit(star_system: star.StarSystem, star_front: star.Star, star_
 
 
 def calculate_touch(star_system: star.StarSystem, star_front: star.Star, star_back: star.Star, x: float) -> float:
-	if (star_front != star_system.star1 and star_front != star_system.star2) or \
-		(star_back != star_system.star1 and star_back != star_system.star2):
+	if not ((star_front in star_system) and (star_back in star_system)):
 		from ctypes import ArgumentError
 		raise ArgumentError
 	

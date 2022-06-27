@@ -1,3 +1,4 @@
+import sys
 import modeling.transit as transit
 from data.constants import *
 
@@ -53,6 +54,14 @@ class StarSystem:
 		self.p: float = self.a * (1 - self.e**2)
 		
 		assert 0 <= self.e < 1
+		
+		if self.q < (star1.radius + star2.radius):
+			# stars intersect in periapsis - incorrect!
+			print(RED, stars_intersect_error, RESET, sep='')
+			sys.exit(1)
+	
+	def __contains__(self, star: Star):
+		return star in (self.star1, self.star2)
 	
 	def calculate_transit(self, star1: Star, star2: Star) -> float:
 		return transit.calculate_transit(self, star1, star2)

@@ -14,6 +14,8 @@ from data.constants import *
 t0 = process_time()
 t0_real = time()
 
+# Setting up
+
 install(show_locals=True, width=300)
 
 data = configparser.ConfigParser()
@@ -35,18 +37,7 @@ distances: list[float] = []
 fis: list[float] = []
 x_axis_data: list[float] = []
 
-
-def normalize_angle(angle: float):
-	while not (0 <= angle < 360):
-		if angle > 360:
-			angle -= 360
-		if angle < 0:
-			angle += 360
-	return angle
-
-
-t1 = process_time()
-t1_real = time()
+# Calculations
 
 for t in tqdm(periods):
 	fi = time2phi(t, system.period, system.e)
@@ -65,14 +56,13 @@ for t in tqdm(periods):
 	distances_visual.append(x)
 	distances.append(abs(system.p / (1 + system.e * cos(radians(fi)))))
 	fis.append(fi)
-	
 
 t2 = process_time()
 t2_real = time()
-print(f'PROCESSOR TIME:\n{"-" * 15}\n{t2 - t0} seconds in total\n{t2 - t1} seconds calculating\n{t1 - t0} seconds setting up ({(t1 - t0) / (t2 - t1) * 100}%)\n')
-print(f'REAL TIME:\n{"-" * 15}\n{t2_real - t0_real} seconds in total\n{t2_real - t1_real} seconds calculating\n{t1_real - t0_real} seconds setting up ({(t1_real - t0_real) / (t2_real - t1_real) * 100}%)')
+print(f'PROCESSOR TIME: {t2 - t0} seconds')
+print(f'REAL TIME: {t2_real - t0_real} seconds')
 
-rcParams['mathtext.fontset'] = 'cm'
+# Setting up matplotlib
 
 fig, axes = plt.subplots(2, 2)
 ax1, ax2, ax3, ax4 = axes.flat
