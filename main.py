@@ -71,8 +71,7 @@ rcParams['mathtext.fontset'] = 'cm'
 plt.setp(axes, xlabel='Доля периода', xticks=np.arange(0.0, 1.1, 0.1), xlim=(-0.1, 1.1))
 ax1.invert_yaxis()
 plt.sca(ax4)
-plt.yticks(range(-30, 450, 30))
-
+plt.yticks(range(-120, 480, 30))
 
 for axis, y_data, color, title in zip(axes.flat, (mags, distances_visual, distances, fis), mpl_colors, subplot_titles):
 	axis.grid(True, ls='--')
@@ -84,6 +83,7 @@ ax3.scatter(0.5, system.Q, color=mpl_colors[2])
 ax3.scatter(1, system.q, color=mpl_colors[2])
 
 ax4.scatter(0, 0, color=mpl_colors[3])
+ax4.scatter(0.5, 180, color=mpl_colors[3])
 ax4.scatter(1, 360, color=mpl_colors[3])
 
 plt.show()
