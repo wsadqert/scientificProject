@@ -1,6 +1,5 @@
 import configparser
 from time import process_time, time
-from typing import Final
 
 import numpy as np
 from matplotlib import pyplot as plt, rcParams
@@ -8,7 +7,7 @@ from rich.traceback import install
 from tqdm import tqdm
 
 from modeling.star import Star, StarSystem
-from modeling.calculations import projection_length, time2phi
+from modeling.calculations import normalize_angle, projection_length, time2phi
 from data.constants import *
 
 t0 = process_time()
@@ -67,21 +66,24 @@ print(f'REAL TIME: {t2_real - t0_real} seconds')
 fig, axes = plt.subplots(2, 2)
 ax1, ax2, ax3, ax4 = axes.flat
 
+rcParams['mathtext.fontset'] = 'cm'
+
 plt.setp(axes, xlabel='Доля периода', xticks=np.arange(0.0, 1.1, 0.1), xlim=(-0.1, 1.1))
-
-for ax in axes.flat:
-	ax.grid(True, ls='--')
-
-ax1.set_title('Кривая блеска (абсолютной звёздной величины)')
-ax2.set_title('Кривая расстояния в проекции на плоскость, перпендикулярную лучу зрения')
-ax3.set_title('Кривая расстояния между центрами')
-ax4.set_title('Кривая истинной аномалии')
-
 ax1.invert_yaxis()
+plt.sca(ax4)
+plt.yticks(range(-30, 450, 30))
 
-ax1.plot(x_axis_data, mags)
-ax2.plot(x_axis_data, distances_visual)
-ax3.plot(x_axis_data, distances)
-ax4.plot(x_axis_data, fis)
+
+for axis, y_data, color, title in zip(axes.flat, (mags, distances_visual, distances, fis), mpl_colors, subplot_titles):
+	axis.grid(True, ls='--')
+	axis.set_title(title)
+	axis.plot(x_axis_data, y_data, color=color)
+
+ax3.scatter(0, system.q, color=mpl_colors[2])
+ax3.scatter(0.5, system.Q, color=mpl_colors[2])
+ax3.scatter(1, system.q, color=mpl_colors[2])
+
+ax4.scatter(0, 0, color=mpl_colors[3])
+ax4.scatter(1, 360, color=mpl_colors[3])
 
 plt.show()

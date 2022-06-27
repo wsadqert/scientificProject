@@ -1,7 +1,4 @@
 from __future__ import annotations
-
-from typing import Final
-
 import modeling.star as star
 from modeling.calculations import calculate_intersection, interpolate
 from data.constants import *
