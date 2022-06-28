@@ -25,14 +25,14 @@ def calculate_touch(star_system: star.StarSystem, star_front: star.Star, star_ba
 		raise ArgumentError
 	
 	if x <= abs(star_front.radius - star_back.radius):
-		# see `/src/image_1.png`
+		# see `/src/picture_in.png`
 		return star_system.calculate_transit(star_front, star_back)
 	
 	if star_front.radius + star_back.radius <= x:
-		# see `/src/image_2.png`
+		# see `/src/picture_out.png`
 		return star_system.abs_magnitude
 	
-	# see `/src/image_3.png`
+	# see `/src/picture_intersection.png`
 	
 	max_radius = max(star_front.radius, star_back.radius)
 	min_radius = min(star_front.radius, star_back.radius)
