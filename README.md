@@ -12,6 +12,8 @@
 3. https://ru.wikipedia.org/wiki/Уравнение_Кеплера#Приближённые_методы
 4. Официальная документация к библиотеке matplotlib:
     - https://matplotlib.org/stable/gallery/lines_bars_and_markers/fill_between_demo.html
+    - https://matplotlib.org/stable/gallery/shapes_and_collections/hatch_style_reference.html
+    - https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.legend.html
 5. Обсуждения на форуме StackOverflow (настройка matplotlib):
     - https://stackoverflow.com/questions/28132936/axes-invert-axis-does-not-work-with-sharey-true-for-matplotlib-subplots
     - https://stackoverflow.com/questions/56894740/matplotlib-why-does-setting-grid-with-pyplot-setp-causes-error
