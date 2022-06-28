@@ -4,7 +4,7 @@ from data.constants import *
 def calculate_intersection(R1: float, R2: float, D: float) -> float:
 	"""R1 <= R2"""
 	
-	# see `/src/intersection.gif`, `/src/geometry_solution_intersection.jpeg`
+	# see `/src/intersection.gif`, `/src/intersection_solution.jpeg`
 	
 	def calculate_cos_theorem(r1: float, r2: float, d: float) -> float:
 		return degrees(acos((d ** 2 + r1 ** 2 - r2 ** 2) / (2 * d * r1)))
