@@ -22,8 +22,7 @@ def elliptical_orbit(t: float, T: float, e: float) -> float:
 	return phi
 
 
-def time2phi(t: float, T: float, e: float):
+def time2phi(t: float, T: float, e: float) -> float:
 	if e == 0:
 		return circular_orbit(t, T)
 	return elliptical_orbit(t, T, e)
-	
