@@ -1,0 +1,19 @@
+name: Pyre
+
+on:
+  push:
+    branches: master
+  pull_request:
+    branches: master
+
+jobs:
+  pyre:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Run Pyre Action
+        uses: facebook/pyre-action
+        with:
+            repo-directory: './'
+            requirements-path: 'requirements.txt'
