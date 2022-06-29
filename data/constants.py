@@ -11,16 +11,6 @@ sigma_sb = sigma_sb.to_value()
 
 abs_magnitude_sun: Final[float] = 4.75
 
-subplot_titles: Final[tuple[str, ...]] = ('Кривая блеска (абсолютной звёздной величины)',
-                                          'Кривая расстояния между центрами',
-                                          '',
-                                          'Кривая истинной аномалии')
-subplot_labels: Final[tuple[str, ...]] = (r'$M_{abs}(t)$',
-                                          r'расстояние между центрами в проекции на плоскость, перпендикулярную лучу зрения',
-                                          r'расстояние между центрами',
-                                          r'$\varphi(t)$')
-stars_intersect_error: Final[str] = 'Неправильные входные данные, моделирование невозможно! В периастре звёзды пересекаются или подходят друг к другу на расстояние, меньшее суммы радиуов звёзд! Способы устранения ошибки: \n - уменьшить эксцентриситет, приблизив орбиту к круговой \n - увеличить большую полуось орбиты \n - уменьшить радиусы звёзд'
-
 BLACK = colorama.Fore.BLACK
 RED = colorama.Fore.RED
 GREEN = colorama.Fore.GREEN
@@ -34,5 +24,15 @@ RESET = colorama.Fore.RESET + '\033[0m'
 BOLD = '\033[1m'
 UNDERLINE = '\033[4m'
 
-
 mpl_colors = [i['color'] for i in matplotlib.rcParams['axes.prop_cycle']]
+
+subplot_titles: Final[tuple[str, ...]] = ('Кривая блеска (абсолютной звёздной величины)',
+                                          'Кривая расстояния между центрами',
+                                          '',
+                                          'Кривая истинной аномалии')
+subplot_labels: Final[tuple[str, ...]] = (r'$M_{abs}(t)$',
+                                          r'расстояние между центрами в проекции на плоскость, перпендикулярную лучу зрения',
+                                          r'расстояние между центрами',
+                                          r'$\varphi(t)$')
+stars_intersect_error: Final[str] = f'{RED}ERROR!{RESET} Wrong input data, modeling not possible! In the periastron, the stars intersect or approach each other at a distance less than the sum of the radii of the stars! Ways to fix the error: \n - bring the orbit closer to a circular one by reducing the eccentricity \n - increase the semi-major axis of the orbit \n - reduce the radii of stars'
+not_variable_warning: Final[str] = f'{YELLOW}Warning!{RESET} Star system is not variable'
