@@ -41,7 +41,9 @@ x_axis_data: list[float] = []
 
 for t in tqdm(periods):
 	fi = time2phi(t, system.period, system.e)
-	x: float = sqrt(apparent_distance(system, fi)**2 + inclination_correction(system, fi)**2)
+	ap = apparent_distance(system, fi)
+	# x: float = min(sqrt(ap**2 + inclination_correction(system, fi)**2), ap)
+	x: float = sqrt(ap**2 + inclination_correction(system, fi)**2)
 	
 	if 0 <= normalize_angle(fi) <= 90 or 270 <= normalize_angle(fi) <= 360:
 		star_front, star_back = star2, star1
@@ -61,6 +63,9 @@ t2 = process_time()
 t2_real = time()
 print(f'PROCESSOR TIME: {t2 - t0} seconds')
 print(f'REAL TIME: {t2_real - t0_real} seconds')
+
+if len(set(mags)) == 1:
+	print(not_variable_warning)
 
 # Setting up matplotlib
 
