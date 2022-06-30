@@ -1,4 +1,6 @@
-# Компьютерное моделирование кривой блеска затменно-переменной двойной звёздной системы
+# Компьютерное моделирование кривой блеска затменной двойной звёздной системы
+
+[![wakatime](https://wakatime.com/badge/user/ede740b4-c066-46b1-94e3-8631a44edbbc/project/68c47a79-df9e-405c-aacb-26f8a66702d4.svg)](https://wakatime.com/badge/user/ede740b4-c066-46b1-94e3-8631a44edbbc/project/68c47a79-df9e-405c-aacb-26f8a66702d4)
 
 #### Используемые приближения:
 - Все прохождения _центральные_
@@ -21,4 +23,4 @@
     - https://stackoverflow.com/questions/5993206/is-it-possible-to-have-multiple-pyplot-windows-or-am-i-limited-to-subplots
 6. Обсуждения на форуме OverCoder (настройка matplotlib):
     - https://overcoder.net/q/1195838/как-мне-заполнить-область-только-штриховкой-без-фона-в-matplotlib-20
-7. https://www.geeksforgeeks.org/how-to-implement-linear-interpolation-in-python/amp/ - учебный материал из ресурса GeeksForGeeks "How to implement linear interpolation in Python?"
+7. https://www.geeksforgeeks.org/how-to-implement-linear-interpolation-in-python/amp/ - учебный материал с портала GeeksForGeeks "How to implement linear interpolation in Python?"
