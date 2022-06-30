@@ -50,7 +50,7 @@ for t in tqdm(periods):
 	else:
 		star_front, star_back = star1, star2
 	
-	result = system.calculate_touch(star_front, star_back, x)
+	result: float = system.calculate_touch(star_front, star_back, x)
 	
 	x_axis_data.append(t / system.period)
 	
@@ -102,13 +102,12 @@ axes[1].scatter(0, meters2au(system.q), color=mpl_colors[2])
 axes[1].scatter(0.5, meters2au(system.Q), color=mpl_colors[2])
 axes[1].scatter(1, meters2au(system.q), color=mpl_colors[2])
 axes[1].fill_between(x_axis_data, distances_visual, facecolor='none', hatch='xx', edgecolor=mpl_colors[1], linewidth=0.0)
-# axes[1].fill_between(x_axis_data, distances_visual, distances, facecolor='none', hatch='X', edgecolor=mpl_colors[2], linewidth=1e-4)
+# axes[1].fill_between(x_axis_data, distances_visual, distances, facecolor='none', hatch='X', edgecolor=mpl_colors[2], linewidth=0.0)
 
 plt.sca(axes[2])
 plt.yticks(range(-120, 480, 30))
 axes[2].scatter(0, 0, color=mpl_colors[3])
 axes[2].scatter(0.5, 180, color=mpl_colors[3])
 axes[2].scatter(1, 360, color=mpl_colors[3])
-
 
 plt.show()
