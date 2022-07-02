@@ -24,7 +24,7 @@ RESET = colorama.Fore.RESET + '\033[0m'
 BOLD = '\033[1m'
 UNDERLINE = '\033[4m'
 
-mpl_colors = [i['color'] for i in matplotlib.rcParams['axes.prop_cycle']]
+mpl_colors: list[str] = [i['color'] for i in matplotlib.rcParams['axes.prop_cycle']]
 
 subplot_titles: Final[tuple[str, ...]] = ('Кривая блеска (абсолютной звёздной величины)',
                                           'Кривая расстояния между центрами',
