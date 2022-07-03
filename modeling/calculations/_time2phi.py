@@ -8,10 +8,10 @@ def circular_orbit(t: float, T: float) -> float:
 
 
 def elliptical_orbit(t: float, T: float, e: float) -> float:
-	E: float = 0
 	M: float = t / T * 2*pi
+	E: float = M
 	
-	for n in range(100):
+	for n in range(20):
 		E = e * sin(E) + M
 	
 	phi: float = 2 * degrees(atan(tan(E/2) / sqrt((1-e) / (1+e))))
