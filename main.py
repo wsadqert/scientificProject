@@ -42,7 +42,6 @@ x_axis_data: list[float] = []
 for t in tqdm(periods):
 	fi = time2phi(t, system.period, system.e)
 	ap = apparent_distance(system, fi)
-	# x: float = min(sqrt(ap**2 + inclination_correction(system, fi)**2), ap)
 	x: float = sqrt(ap**2 + inclination_correction(system, fi)**2)
 	
 	if 0 <= normalize_angle(fi) <= 90 or 270 <= normalize_angle(fi) <= 360:
@@ -53,7 +52,6 @@ for t in tqdm(periods):
 	result: float = system.calculate_touch(star_front, star_back, x)
 	
 	x_axis_data.append(t / system.period)
-	
 	mags.append(result)
 	distances_visual.append(x)
 	distances.append(abs(system.p / (1 + system.e * cos(radians(fi)))))

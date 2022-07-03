@@ -5,11 +5,9 @@ from data.constants import *
 
 
 def calculate_transit(star_system: star.StarSystem, star_front: star.Star, star_back: star.Star) -> float:
-	"""Calculates absolute magnitude of star system at transit time"""
-	
-	if (star_front != star_system.star1 and star_front != star_system.star2) or \
-		(star_back != star_system.star1 and star_back != star_system.star2):
-		raise AttributeError
+	if not ((star_front in star_system) and (star_back in star_system)):
+		from ctypes import ArgumentError
+		raise ArgumentError
 	
 	if star_front.radius >= star_back.radius:
 		return star_front.abs_magnitude
