@@ -79,7 +79,7 @@ for i, y_data, color, title, label in zip(range(4), (mags, distances_visual, dis
 		fig, ax = plt.subplots()
 		axes.append(ax)
 		
-		plt.grid(True, ls='--')
+		# plt.grid(True, ls='--')
 		plt.title(title)
 		
 		plt.xticks(np.arange(-1.0, 2.0, 0.1))
@@ -89,10 +89,10 @@ for i, y_data, color, title, label in zip(range(4), (mags, distances_visual, dis
 	plt.plot(x_axis_data, y_data, color=color, label=label)
 	
 	if i == 2:
-		plt.legend(loc='upper right')
+		# plt.legend(loc='upper right')
 		continue
 	
-	plt.legend()
+	# plt.legend()
 
 axes[0].invert_yaxis()
 
