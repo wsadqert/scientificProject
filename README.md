@@ -1,4 +1,4 @@
-# Компьютерное моделирование кривой блеска затменной двойной звёздной системы
+# Компьютерное моделирование кривой блеска затменной звёздной системы
 
 [![Made with Python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
 [![Made with Markdown](https://img.shields.io/badge/Made%20with-Markdown-1f425f.svg)](http://commonmark.org)
