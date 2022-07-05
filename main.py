@@ -54,7 +54,7 @@ for t in tqdm(periods):
 	x_axis_data.append(t / system.period)
 	mags.append(result)
 	distances_visual.append(x)
-	distances.append(abs(system.p / (1 + system.e * cos(radians(fi)))))
+	distances.append(system.r(fi))
 	fis.append(fi)
 
 t2 = process_time()

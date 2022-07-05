@@ -73,3 +73,6 @@ class StarSystem:
 	def abs_magnitude(self) -> float:
 		return -2.5 * log10(10 ** (-0.4 * self.star1.abs_magnitude) + 10 ** (-0.4 * self.star2.abs_magnitude))
 	
+	def r(self, fi):
+		return abs(self.p / (1 + self.e * cos(radians(fi))))
+	
