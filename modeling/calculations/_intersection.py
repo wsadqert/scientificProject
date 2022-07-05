@@ -12,8 +12,6 @@ def calculate_intersection(R1: float, R2: float, D: float) -> float:
 	alpha1: float = calculate_cos_theorem(R1, R2, D)
 	alpha2: float = calculate_cos_theorem(R2, R1, D)
 	
-	# print(alpha1, alpha2)
-	
 	S_sector_1: float = (alpha1 * pi * R1 ** 2) / 360
 	S_sector_2: float = (alpha2 * pi * R2 ** 2) / 360
 	
