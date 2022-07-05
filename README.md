@@ -1,4 +1,4 @@
-# Моделирование затменных звёздных систем
+# Компьютерное моделирование кривой блеска затменной звёздной системы
 
 [![Made with Python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
 [![Made with Markdown](https://img.shields.io/badge/Made%20with-Markdown-1f425f.svg)](http://commonmark.org)
@@ -8,12 +8,6 @@
 [![Dependabot](https://flat.badgen.net/github/dependabot/PM-95025/scientificProject)](https://github.com/PM-95025/scientificProject/network/updates)
 [![GitHub latest commit](https://flat.badgen.net/github/last-commit/PM-95025/scientificProject)](https://github.com/PM-95025/scientificProject/commits)
 [![Maintainability](https://api.codeclimate.com/v1/badges/c366428254a5bf01ae87/maintainability)](https://codeclimate.com/github/PM-95025/scientificProject/maintainability)
-
-Главный файл - `./main.py`
-
-Файл конфигурации - `./data/data.ini`
-
-Презентация - `./src/Моделирование_затменной_звёздной_системы.pptx`
 
 #### Используемые приближения:
 - Все прохождения _центральные_
@@ -39,7 +33,6 @@
 7. Информация о двойных звёздах (в т.ч. их параметры)
 	- https://en.wikipedia.org/wiki/AD_Andromedae
 	- https://en.wikipedia.org/wiki/CG_Cygni
-    - https://en.wikipedia.org/wiki/AR_Cassiopeiae
 	- https://www.scirp.org/journal/paperinformation.aspx?paperid=77049 (TT And)
 	- http://www.physics.sfasu.edu/astro/ebstar/ebstar.html (битая ссылка, архивная версия на [WayBack Machine](https://web.archive.org/web/20220501021646/http://www.physics.sfasu.edu/astro/ebstar/ebstar.html) - статья из электронной библиотеки SFASU "ECLIPSING BINARY STARS. A Simple Model for Computing Light Curves"
 	- http://crydee.sai.msu.ru/ak4/Chapt_11_3_154.htm - статья из электронной библиотеки ГАИШ "§ 154. Общие характеристики двойных систем"
