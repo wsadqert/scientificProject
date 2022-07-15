@@ -1,4 +1,4 @@
-# Моделирование затменных звёздных систем
+# Моделирование затменных звёздных систем (CMoEBS)
 
 [![Made with Python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
 [![Made with Markdown](https://img.shields.io/badge/Made%20with-Markdown-1f425f.svg)](http://commonmark.org)
