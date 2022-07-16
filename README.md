@@ -19,9 +19,6 @@
 - Обе звезды _всегда_ находятся на _одинаковом_ расстоянии от наблюдателя, равном 10 п
 - Звёзды - это круги, а не шары
 
-### Перспективы развития проекта (TODO)
-- Добавить ..
-
 ### Используемые интернет-источники:
 1. https://forum.sources.ru/index.php?showtopic=9381 - тема с форума Sources.Ru (задача о пересечении двух кругов)
 2. https://ru.wikipedia.org/wiki/Уравнение_Кеплера#Приближённые_методы
@@ -29,6 +26,7 @@
 	- https://matplotlib.org/stable/gallery/lines_bars_and_markers/fill_between_demo.html
 	- https://matplotlib.org/stable/gallery/shapes_and_collections/hatch_style_reference.html
 	- https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.legend.html
+4. https://github.com/hpparvi/ldtk/blob/master/notebooks/01_Example_basics.ipynb - jupiter ноутбук с инструкцией по получению данных о распределении яркости по диску звезды
 4. Обсуждения на форуме StackOverflow (настройка matplotlib):
 	- https://stackoverflow.com/questions/28132936/axes-invert-axis-does-not-work-with-sharey-true-for-matplotlib-subplots
 	- https://stackoverflow.com/questions/56894740/matplotlib-why-does-setting-grid-with-pyplot-setp-causes-error
