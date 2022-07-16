@@ -68,14 +68,15 @@ BOLD = '\033[1m'
 UNDERLINE = '\033[4m'
 
 mpl_colors: Final[list[str]] = [i['color'] for i in rcParams['axes.prop_cycle']]
+mpl_colors[0], mpl_colors[1] = mpl_colors[1], mpl_colors[0]
 
 subplot_titles: Final[tuple[str, ...]] = ('Кривая блеска (абсолютной звёздной величины)',
                                           '',
                                           'Кривая расстояния между центрами',
                                           '',
                                           'Кривая истинной аномалии')
-subplot_labels: Final[tuple[str, ...]] = (r'светимость',
-                                          r'поправка светимости',
+subplot_labels: Final[tuple[str, ...]] = (r'абсолютная звёздная величина без поправки на потемнение к краю',
+                                          r'абсолютная звёздная величина с поправкой',
                                           r'расстояние между центрами в проекции на картинную плоскость',
                                           r'абсолютное расстояние между центрами',
                                           r'$\varphi(t)$')

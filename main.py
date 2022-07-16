@@ -32,7 +32,7 @@ system: StarSystem = StarSystem(star1, star2, *[float(data['System'][i]) for i i
 dt: Final[float] = float(data['General']['dt'])
 periods: np.ndarray = np.arange(-1 / 6 * system.period, 7 / 6 * system.period, dt)
 mags: list[float] = []
-mags_corrections: list[float] = []
+mags_without_correction: list[float] = []
 distances_visual: list[float] = []
 distances: list[float] = []
 fis: list[float] = []
@@ -54,7 +54,7 @@ for t in tqdm(periods):
 	
 	x_axis_data.append(t / system.period)
 	mags.append(result[0])
-	mags_corrections.append(result[1])
+	mags_without_correction.append(result[1])
 	distances_visual.append(x)
 	distances.append(system.r(fi))
 	fis.append(fi)
@@ -76,7 +76,7 @@ axes: list[matplotlib.axes.Axes] = []
 distances = meters2au(distances)
 distances_visual = meters2au(distances_visual)
 
-for i, y_data, color, title, label in zip(range(5), (mags, mags_corrections, distances_visual, distances, fis), mpl_colors, subplot_titles, subplot_labels):
+for i, y_data, color, title, label in zip(range(5), (mags_without_correction, mags, distances_visual, distances, fis), mpl_colors, subplot_titles, subplot_labels):
 	if i not in (1, 3):
 		fig, ax = plt.subplots()
 		axes.append(ax)
@@ -89,7 +89,10 @@ for i, y_data, color, title, label in zip(range(5), (mags, mags_corrections, dis
 	
 	plt.plot(x_axis_data, y_data, color=color, label=label)
 	
-	if i == 3:
+	if i == 1:
+		plt.legend(loc='lower center')
+		continue
+	elif i == 3:
 		plt.legend(loc='upper right')
 		continue
 	

@@ -1,5 +1,3 @@
-from typing import Tuple
-
 import modeling.star as star
 from modeling.calculations import calculate_intersection, interpolator, limb_darkening_interpolator
 from data.constants import *
@@ -40,7 +38,7 @@ def calculate_touch(star_system, star_front, star_back, x: float) -> tuple[float
 	"""
 	if star_front.radius + star_back.radius <= x:
 		# see `/src/picture_out.png`
-		return tuple([star.abs_magnitude(star_system.L * (1 + limb_darkening_edge) / 2),]) * 2
+		return tuple([star.abs_magnitude(star_system.L * (1 + limb_darkening_edge) / 2)]) * 2
 	
 	# see `/src/picture_intersection.png`
 	
@@ -53,7 +51,7 @@ def calculate_touch(star_system, star_front, star_back, x: float) -> tuple[float
 	L_corr_limb_darkening: float = limb_darkening_interpolator((max_radius + min_radius - x) / (4 * star_back.radius))
 	# print(L_corr)
 	
-	L_total: float = L_front + L_back - L_corr_square * L_corr_limb_darkening
+	L_total: float = L_front + L_back - L_corr_square / L_corr_limb_darkening
 	
 	# L_total: Final[float] = star_front.L * (1 + limb_darkening_y) / 2 + interpolate(calculate_intersection(min_radius, max_radius, x), ((0, star_back.L * (1 + limb_darkening_y) / 2), (star_back.square, 0)))
 	abs_magnitude: float = star.abs_magnitude(L_total)
