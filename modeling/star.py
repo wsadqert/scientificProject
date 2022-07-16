@@ -4,7 +4,7 @@ from data.constants import *
 
 
 def abs_magnitude(L: float) -> float:
-	return abs_magnitude_sun - log10(L / L_sun) / 0.4
+	return abs_magnitude_sun - log10(L / L_sun) * 100**0.2
 
 
 class Star:
@@ -63,10 +63,11 @@ class StarSystem:
 	def __contains__(self, star: Star):
 		return star in (self.star1, self.star2)
 	
+	
 	def calculate_transit(self, star1: Star, star2: Star) -> float:
 		return transit.calculate_transit(self, star1, star2)
 	
-	def calculate_touch(self, star1: Star, star2: Star, x: float) -> float:
+	def calculate_touch(self, star1: Star, star2: Star, x: float) -> tuple[float, float]:
 		return transit.calculate_touch(self, star1, star2, x)
 
 	@property

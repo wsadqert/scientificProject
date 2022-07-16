@@ -9,19 +9,20 @@
 [![GitHub latest commit](https://flat.badgen.net/github/last-commit/PM-95025/scientificProject)](https://github.com/PM-95025/scientificProject/commits)
 [![Maintainability](https://api.codeclimate.com/v1/badges/c366428254a5bf01ae87/maintainability)](https://codeclimate.com/github/PM-95025/scientificProject/maintainability)
 
-Главный файл - `./main.py`
+Главный файл - [`./main.py`](./main.py)
 
-Файл конфигурации - `./data/data.ini`
+Файл конфигурации - [`./data/data.ini`](./data/data.ini)
 
-Презентация - `./src/Моделирование_затменной_звёздной_системы.pptx`
+Презентация - [`./src/Моделирование_затменных_звёздных_систем.pptx`](./src/Презентация.pptx)
 
-#### Используемые приближения:
-- Все прохождения _центральные_
-- Обе звезды _всегда_ находятся на _одинаковом_ расстоянии от наблюдателя, равном 10 пк
-- Потемнения звезды к краю _не существует_
+#### Используемые приближения
+- Обе звезды _всегда_ находятся на _одинаковом_ расстоянии от наблюдателя, равном 10 п
+- Звёзды - это круги, а не шары
 
+### Перспективы развития проекта (TODO)
+- Добавить ..
 
-#### Используемые интернет-источники:
+### Используемые интернет-источники:
 1. https://forum.sources.ru/index.php?showtopic=9381 - тема с форума Sources.Ru (задача о пересечении двух кругов)
 2. https://ru.wikipedia.org/wiki/Уравнение_Кеплера#Приближённые_методы
 3. Официальная документация к библиотеке matplotlib:

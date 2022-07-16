@@ -4,8 +4,8 @@ from time import process_time, time
 from rich.traceback import install
 from tqdm import tqdm
 
-import numpy as np
 from matplotlib import pyplot as plt, rcParams
+import matplotlib
 
 from modeling.star import Star, StarSystem
 from modeling.calculations import meters2au, normalize_angle, apparent_distance, time2phi, inclination_correction
@@ -32,12 +32,13 @@ system: StarSystem = StarSystem(star1, star2, *[float(data['System'][i]) for i i
 dt: Final[float] = float(data['General']['dt'])
 periods: np.ndarray = np.arange(-1 / 6 * system.period, 7 / 6 * system.period, dt)
 mags: list[float] = []
+mags_corrections: list[float] = []
 distances_visual: list[float] = []
 distances: list[float] = []
 fis: list[float] = []
 x_axis_data: list[float] = []
 
-# Calculations
+# ---------CALCULATIONS---------
 
 for t in tqdm(periods):
 	fi = time2phi(t, system.period, system.e)
@@ -49,10 +50,11 @@ for t in tqdm(periods):
 	else:
 		star_front, star_back = star1, star2
 	
-	result: float = system.calculate_touch(star_front, star_back, x)
+	result: tuple[float, float] = system.calculate_touch(star_front, star_back, x)
 	
 	x_axis_data.append(t / system.period)
-	mags.append(result)
+	mags.append(result[0])
+	mags_corrections.append(result[1])
 	distances_visual.append(x)
 	distances.append(system.r(fi))
 	fis.append(fi)
@@ -61,11 +63,11 @@ t2 = process_time()
 t2_real = time()
 print(f'PROCESSOR TIME: {t2 - t0} seconds')
 print(f'REAL TIME: {t2_real - t0_real} seconds')
-
+"""
 if len(set(mags)) == 1:
 	print(not_variable_warning)
-
-# Setting up matplotlib
+"""
+# -----SETTING UP MATPLOTLIB-----
 
 rcParams['mathtext.fontset'] = 'cm'
 
@@ -74,38 +76,37 @@ axes: list[matplotlib.axes.Axes] = []
 distances = meters2au(distances)
 distances_visual = meters2au(distances_visual)
 
-for i, y_data, color, title, label in zip(range(4), (mags, distances_visual, distances, fis), mpl_colors, subplot_titles, subplot_labels):
-	if i != 2:
+for i, y_data, color, title, label in zip(range(5), (mags, mags_corrections, distances_visual, distances, fis), mpl_colors, subplot_titles, subplot_labels):
+	if i not in (1, 3):
 		fig, ax = plt.subplots()
 		axes.append(ax)
 		
-		# plt.grid(True, ls='--')
+		plt.grid(True, ls='--')
 		plt.title(title)
 		
 		plt.xticks(np.arange(-1.0, 2.0, 0.1))
-		# plt.xlim(-0.1, 1.1)
 		plt.xlabel('Доля периода')
 	
 	plt.plot(x_axis_data, y_data, color=color, label=label)
 	
-	if i == 2:
-		# plt.legend(loc='upper right')
+	if i == 3:
+		plt.legend(loc='upper right')
 		continue
 	
-	# plt.legend()
+	plt.legend()
 
 axes[0].invert_yaxis()
 
-axes[1].scatter(0, meters2au(system.q), color=mpl_colors[2])
-axes[1].scatter(0.5, meters2au(system.Q), color=mpl_colors[2])
-axes[1].scatter(1, meters2au(system.q), color=mpl_colors[2])
-axes[1].fill_between(x_axis_data, distances_visual, facecolor='none', hatch='xx', edgecolor=mpl_colors[1], linewidth=0.0)
-# axes[1].fill_between(x_axis_data, distances_visual, distances, facecolor='none', hatch='X', edgecolor=mpl_colors[2], linewidth=0.0)
+axes[1].scatter(0, meters2au(system.q), color=mpl_colors[3])
+axes[1].scatter(0.5, meters2au(system.Q), color=mpl_colors[3])
+axes[1].scatter(1, meters2au(system.q), color=mpl_colors[3])
+axes[1].fill_between(x_axis_data, distances_visual, facecolor='none', hatch='xx', edgecolor=mpl_colors[2], linewidth=0.0)
 
 plt.sca(axes[2])
 plt.yticks(range(-120, 480, 30))
-axes[2].scatter(0, 0, color=mpl_colors[3])
-axes[2].scatter(0.5, 180, color=mpl_colors[3])
-axes[2].scatter(1, 360, color=mpl_colors[3])
+axes[2].scatter(0, 0, color=mpl_colors[4])
+axes[2].scatter(0.5, 180, color=mpl_colors[4])
+axes[2].scatter(1, 360, color=mpl_colors[4])
 
+# plt.savefig('qwertyu.png')
 plt.show()

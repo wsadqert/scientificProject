@@ -2,7 +2,13 @@ from data.constants import *
 
 
 def calculate_intersection(R1: float, R2: float, D: float) -> float:
-	"""R1 <= R2"""
+	R1, R2 = min(R1, R2), max(R1, R2)
+	
+	if D > R1 + R2:
+		return 0
+	
+	if D < R2 - R1:
+		return pi * min(R1, R2) ** 2
 	
 	# see `/src/intersection.gif`, `/src/intersection_solution.jpeg`
 	

@@ -1,5 +1,9 @@
 from data.constants import *
+from scipy import interpolate as interp
 
 
-def interpolate(value: float, data: Sequence[Sequence[float]]) -> float:
-	return data[0][1] + (value - data[0][0]) * ((data[1][1] - data[0][1]) / (data[1][0] - data[0][0]))
+def limb_darkening_interpolator(d: float):
+	return interp.interp1d(limb_darkening_x, limb_darkening_y)(d)
+
+
+interpolator = lambda x, y, d: interp.interp1d(x, y)(d)
