@@ -63,10 +63,10 @@ t2 = process_time()
 t2_real = time()
 print(f'PROCESSOR TIME: {t2 - t0} seconds')
 print(f'REAL TIME: {t2_real - t0_real} seconds')
-"""
+
 if len(set(mags)) == 1:
 	print(not_variable_warning)
-"""
+
 # -----SETTING UP MATPLOTLIB-----
 
 rcParams['mathtext.fontset'] = 'cm'
